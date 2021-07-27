@@ -6,17 +6,15 @@ import QuestionList from "./QuestionList";
 function App() {
   const [page, setPage] = useState("List");
   const [ questions, setQuestions ] = useState([])
-  // const [ submittedData, setSubmittedData ] = useState([])
-
+// R
   useEffect(() => {
     fetch("http://localhost:4000/questions")
         .then(resp=> resp.json())
         .then(setQuestions)
   },[])
   
+// C
   function handleSubmitEvent(formData) {
-    // console.log(formData)
-    // setSubmittedData([ ...submittedData, formData ])
 
     fetch("http://localhost:4000/questions", {
       method : "POST",
@@ -32,6 +30,7 @@ function App() {
     setQuestions([ ...questions, formData ])
   }
 
+  // D
   function handleDeleteEvent(id) {
     // console.log(id)
     fetch(`http://localhost:4000/questions/${id}`, {
@@ -42,6 +41,7 @@ function App() {
     setQuestions(deletedList)
   }
 
+  // U
   function handleUpdateEvent(id, value) {
       // console.log(id)
       // console.log(value)
