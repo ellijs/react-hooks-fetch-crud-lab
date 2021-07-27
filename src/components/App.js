@@ -43,8 +43,8 @@ function App() {
   }
 
   function handleUpdateEvent(id, value) {
-      console.log(id)
-      console.log(value)
+      // console.log(id)
+      // console.log(value)
     fetch(`http://localhost:4000/questions/${id}`, {
     method: "PATCH",
     headers: {
@@ -54,10 +54,28 @@ function App() {
       "correctIndex": value
       })
     })
-    // .then(resp=>resp.json()).then(setQuestions)
+    .then(resp=>resp.json()).then((question) => {
+      console.log(question)
+      //find index of item
+      const updatedAnswer = question.correctIndex
+      console.log(updatedAnswer)
+      //use spread operator to create a copy of the questions array
+      const updatedQuestions = [ ...questions ]
+      //replace index of the copy with the new question
+      updatedQuestions.map(question => {
+        if(question.id === id) {
+          question.correctIndex = updatedAnswer
+        } else {
+          return true
+        }
+      })
+      //use setQuestions to update the questions
+      setQuestions(updatedQuestions)
+    }
+    )
   }
   
-  console.log(questions)
+  // console.log(questions)
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
